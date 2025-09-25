@@ -1,0 +1,10 @@
+# Production Environment
+User-agent: *
+Allow: /
+
+# Development/Staging
+User-agent: *
+Disallow: /
+
+# Sitemap
+Sitemap: https://yourdomain.com/sitemap.xml

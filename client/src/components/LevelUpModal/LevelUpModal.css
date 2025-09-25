@@ -1,0 +1,35 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+.modal-content h2 {
+  color: #16a34a;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  animation: bounce 0.8s infinite;
+}
+.modal-content p {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+.modal-content button {
+  padding: 0.75rem 1.5rem;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

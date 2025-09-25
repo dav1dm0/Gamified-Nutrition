@@ -1,0 +1,416 @@
+[
+  {
+    "id": 1,
+    "title": "Classic Oatmeal",
+    "readyInMinutes": 10,
+    "timeOfDay": "Breakfast",
+    "image": "/images/classic-oatmeal.jpg",
+    "ingredients": [
+      { "title": "Rolled Oats", "allergies": ["Gluten (if not certified gluten-free)"] },
+      { "title": "Milk or Water", "allergies": ["Dairy (if milk is used)"] },
+      { "title": "Mixed Berries", "allergies": [] },
+      { "title": "Honey or Maple Syrup", "allergies": [] }
+    ],
+    "diet": "Vegetarian"
+  },
+  {
+    "id": 2,
+    "title": "Avocado Toast with Egg",
+    "readyInMinutes": 10,
+    "timeOfDay": "Breakfast",
+    "image": "/images/avocado-toast.jpg",
+    "ingredients": [
+      { "title": "Bread", "allergies": ["Gluten"] },
+      { "title": "Avocado", "allergies": [] },
+      { "title": "Egg", "allergies": ["Egg"] },
+      { "title": "Red Pepper Flakes", "allergies": [] }
+    ],
+    "diet": "Vegetarian"
+  },
+  {
+    "id": 3,
+    "title": "Tofu Scramble",
+    "readyInMinutes": 20,
+    "timeOfDay": "Breakfast",
+    "image": "/images/tofu-scramble.jpg",
+    "ingredients": [
+      { "title": "Firm Tofu", "allergies": ["Soy"] },
+      { "title": "Nutritional Yeast", "allergies": [] },
+      { "title": "Turmeric", "allergies": [] },
+      { "title": "Spinach & Onions", "allergies": [] }
+    ],
+    "diet": "Vegan"
+  },
+  {
+    "id": 4,
+    "title": "Greek Yogurt Parfait",
+    "readyInMinutes": 5,
+    "timeOfDay": "Breakfast",
+    "image": "/images/yogurt-parfait.jpg",
+    "ingredients": [
+      { "title": "Greek Yogurt", "allergies": ["Dairy"] },
+      { "title": "Granola", "allergies": ["Gluten", "Nuts"] },
+      { "title": "Mixed Berries", "allergies": [] }
+    ],
+    "diet": "Vegetarian"
+  },
+  {
+    "id": 5,
+    "title": "Fluffy Pancakes",
+    "readyInMinutes": 25,
+    "timeOfDay": "Breakfast",
+    "image": "/images/pancakes.jpg",
+    "ingredients": [
+      { "title": "All-Purpose Flour", "allergies": ["Gluten"] },
+      { "title": "Milk", "allergies": ["Dairy"] },
+      { "title": "Egg", "allergies": ["Egg"] },
+      { "title": "Butter", "allergies": ["Dairy"] }
+    ],
+    "diet": "Vegetarian"
+  },
+  {
+    "id": 6,
+    "title": "Green Power Smoothie",
+    "readyInMinutes": 5,
+    "timeOfDay": "Breakfast",
+    "image": "/images/green-smoothie.jpg",
+    "ingredients": [
+      { "title": "Banana", "allergies": [] },
+      { "title": "Spinach", "allergies": [] },
+      { "title": "Almond Milk", "allergies": ["Nuts"] },
+      { "title": "Protein Powder", "allergies": ["Soy", "Dairy (if whey-based)"] }
+    ],
+    "diet": "Vegan"
+  },
+  {
+    "id": 7,
+    "title": "Smoked Salmon Bagel",
+    "readyInMinutes": 10,
+    "timeOfDay": "Breakfast",
+    "image": "/images/salmon-bagel.jpg",
+    "ingredients": [
+      { "title": "Bagel", "allergies": ["Gluten"] },
+      { "title": "Cream Cheese", "allergies": ["Dairy"] },
+      { "title": "Smoked Salmon", "allergies": ["Fish"] },
+      { "title": "Capers & Red Onion", "allergies": [] }
+    ],
+    "diet": "Pescatarian"
+  },
+  {
+    "id": 8,
+    "title": "Shakshuka",
+    "readyInMinutes": 30,
+    "timeOfDay": "Breakfast",
+    "image": "/images/shakshuka.jpg",
+    "ingredients": [
+      { "title": "Tomatoes & Bell Peppers", "allergies": [] },
+      { "title": "Onions & Garlic", "allergies": [] },
+      { "title": "Spices (Cumin, Paprika)", "allergies": [] },
+      { "title": "Eggs", "allergies": ["Egg"] }
+    ],
+    "diet": "Vegetarian"
+  },
+  {
+    "id": 9,
+    "title": "Crispy Vegan Waffles",
+    "readyInMinutes": 25,
+    "timeOfDay": "Breakfast",
+    "image": "/images/vegan-waffles.jpg",
+    "ingredients": [
+      { "title": "All-Purpose Flour", "allergies": ["Gluten"] },
+      { "title": "Plant-based Milk", "allergies": ["Soy", "Nuts"] },
+      { "title": "Apple Cider Vinegar", "allergies": [] },
+      { "title": "Maple Syrup", "allergies": [] }
+    ],
+    "diet": "Vegan"
+  },
+  {
+    "id": 10,
+    "title": "Breakfast Burrito",
+    "readyInMinutes": 20,
+    "timeOfDay": "Breakfast",
+    "image": "/images/breakfast-burrito.jpg",
+    "ingredients": [
+      { "title": "Flour Tortilla", "allergies": ["Gluten"] },
+      { "title": "Scrambled Eggs", "allergies": ["Egg"] },
+      { "title": "Sausage or Bacon", "allergies": [] },
+      { "title": "Cheese", "allergies": ["Dairy"] }
+    ],
+    "diet": "None"
+  },
+  {
+    "id": 11,
+    "title": "Quinoa Salad with Chickpeas",
+    "readyInMinutes": 20,
+    "timeOfDay": "Lunch",
+    "image": "/images/quinoa-salad.jpg",
+    "ingredients": [
+      { "title": "Quinoa", "allergies": [] },
+      { "title": "Chickpeas", "allergies": [] },
+      { "title": "Cucumber & Tomatoes", "allergies": [] },
+      { "title": "Lemon Vinaigrette", "allergies": [] }
+    ],
+    "diet": "Vegan"
+  },
+  {
+    "id": 12,
+    "title": "Caprese Sandwich",
+    "readyInMinutes": 15,
+    "timeOfDay": "Lunch",
+    "image": "/images/caprese-sandwich.jpg",
+    "ingredients": [
+      { "title": "Ciabatta Bread", "allergies": ["Gluten"] },
+      { "title": "Fresh Mozzarella", "allergies": ["Dairy"] },
+      { "title": "Tomatoes & Basil", "allergies": [] },
+      { "title": "Balsamic Glaze", "allergies": [] }
+    ],
+    "diet": "Vegetarian"
+  },
+  {
+    "id": 13,
+    "title": "Tuna Salad Sandwich",
+    "readyInMinutes": 15,
+    "timeOfDay": "Lunch",
+    "image": "/images/tuna-sandwich.jpg",
+    "ingredients": [
+      { "title": "Bread", "allergies": ["Gluten"] },
+      { "title": "Canned Tuna", "allergies": ["Fish"] },
+      { "title": "Mayonnaise", "allergies": ["Egg"] },
+      { "title": "Celery", "allergies": [] }
+    ],
+    "diet": "Pescatarian"
+  },
+  {
+    "id": 14,
+    "title": "Hearty Lentil Soup",
+    "readyInMinutes": 40,
+    "timeOfDay": "Lunch",
+    "image": "/images/lentil-soup.jpg",
+    "ingredients": [
+      { "title": "Brown or Green Lentils", "allergies": [] },
+      { "title": "Carrots, Celery, Onions", "allergies": [] },
+      { "title": "Vegetable Broth", "allergies": [] }
+    ],
+    "diet": "Vegan"
+  },
+  {
+    "id": 15,
+    "title": "Grilled Chicken Caesar Wrap",
+    "readyInMinutes": 25,
+    "timeOfDay": "Lunch",
+    "image": "/images/caesar-wrap.jpg",
+    "ingredients": [
+      { "title": "Flour Tortilla", "allergies": ["Gluten"] },
+      { "title": "Grilled Chicken", "allergies": [] },
+      { "title": "Romaine Lettuce", "allergies": [] },
+      { "title": "Caesar Dressing", "allergies": ["Dairy", "Fish (anchovies)"] }
+    ],
+    "diet": "None"
+  },
+  {
+    "id": 16,
+    "title": "Buddha Bowl",
+    "readyInMinutes": 30,
+    "timeOfDay": "Lunch",
+    "image": "/images/buddha-bowl.jpg",
+    "ingredients": [
+      { "title": "Brown Rice or Quinoa", "allergies": [] },
+      { "title": "Roasted Sweet Potatoes", "allergies": [] },
+      { "title": "Black Beans & Corn", "allergies": [] },
+      { "title": "Tahini Dressing", "allergies": ["Sesame"] }
+    ],
+    "diet": "Vegan"
+  },
+  {
+    "id": 17,
+    "title": "Spicy Shrimp Poke Bowl",
+    "readyInMinutes": 25,
+    "timeOfDay": "Lunch",
+    "image": "/images/poke-bowl.jpg",
+    "ingredients": [
+      { "title": "Sushi Rice", "allergies": [] },
+      { "title": "Shrimp", "allergies": ["Shellfish"] },
+      { "title": "Edamame", "allergies": ["Soy"] },
+      { "title": "Spicy Mayo", "allergies": ["Egg"] }
+    ],
+    "diet": "Pescatarian"
+  },
+  {
+    "id": 18,
+    "title": "Creamy Mushroom Risotto",
+    "readyInMinutes": 45,
+    "timeOfDay": "Lunch",
+    "image": "/images/mushroom-risotto.jpg",
+    "ingredients": [
+      { "title": "Arborio Rice", "allergies": [] },
+      { "title": "Mushrooms", "allergies": [] },
+      { "title": "Parmesan Cheese", "allergies": ["Dairy"] },
+      { "title": "Vegetable Broth", "allergies": [] }
+    ],
+    "diet": "Vegetarian"
+  },
+  {
+    "id": 19,
+    "title": "Black Bean Burgers",
+    "readyInMinutes": 35,
+    "timeOfDay": "Lunch",
+    "image": "/images/black-bean-burger.jpg",
+    "ingredients": [
+      { "title": "Black Beans", "allergies": [] },
+      { "title": "Breadcrumbs", "allergies": ["Gluten"] },
+      { "title": "Onion & Spices", "allergies": [] },
+      { "title": "Burger Bun", "allergies": ["Gluten"] }
+    ],
+    "diet": "Vegan"
+  },
+  {
+    "id": 20,
+    "title": "Classic Greek Salad",
+    "readyInMinutes": 15,
+    "timeOfDay": "Lunch",
+    "image": "/images/greek-salad.jpg",
+    "ingredients": [
+      { "title": "Cucumber & Tomatoes", "allergies": [] },
+      { "title": "Red Onion & Olives", "allergies": [] },
+      { "title": "Feta Cheese", "allergies": ["Dairy"] }
+    ],
+    "diet": "Vegetarian"
+  },
+  {
+    "id": 21,
+    "title": "Spaghetti Carbonara",
+    "readyInMinutes": 25,
+    "timeOfDay": "Dinner",
+    "image": "/images/carbonara.jpg",
+    "ingredients": [
+      { "title": "Spaghetti", "allergies": ["Gluten"] },
+      { "title": "Pancetta or Guanciale", "allergies": [] },
+      { "title": "Eggs", "allergies": ["Egg"] },
+      { "title": "Pecorino Romano Cheese", "allergies": ["Dairy"] }
+    ],
+    "diet": "None"
+  },
+  {
+    "id": 22,
+    "title": "Baked Salmon with Asparagus",
+    "readyInMinutes": 30,
+    "timeOfDay": "Dinner",
+    "image": "/images/baked-salmon.jpg",
+    "ingredients": [
+      { "title": "Salmon Fillet", "allergies": ["Fish"] },
+      { "title": "Asparagus", "allergies": [] },
+      { "title": "Lemon & Dill", "allergies": [] }
+    ],
+    "diet": "Pescatarian"
+  },
+  {
+    "id": 23,
+    "title": "Three-Bean Vegan Chili",
+    "readyInMinutes": 50,
+    "timeOfDay": "Dinner",
+    "image": "/images/vegan-chili.jpg",
+    "ingredients": [
+      { "title": "Kidney Beans, Black Beans, Pinto Beans", "allergies": [] },
+      { "title": "Diced Tomatoes", "allergies": [] },
+      { "title": "Onion & Chili Powder", "allergies": [] }
+    ],
+    "diet": "Vegan"
+  },
+  {
+    "id": 24,
+    "title": "Chicken & Vegetable Stir-fry",
+    "readyInMinutes": 30,
+    "timeOfDay": "Dinner",
+    "image": "/images/chicken-stir-fry.jpg",
+    "ingredients": [
+      { "title": "Chicken Breast", "allergies": [] },
+      { "title": "Broccoli, Bell Peppers, Carrots", "allergies": [] },
+      { "title": "Soy Sauce", "allergies": ["Soy", "Gluten"] },
+      { "title": "Rice", "allergies": [] }
+    ],
+    "diet": "None"
+  },
+  {
+    "id": 25,
+    "title": "Spinach and Ricotta Lasagna",
+    "readyInMinutes": 60,
+    "timeOfDay": "Dinner",
+    "image": "/images/veg-lasagna.jpg",
+    "ingredients": [
+      { "title": "Lasagna Noodles", "allergies": ["Gluten"] },
+      { "title": "Ricotta & Mozzarella Cheese", "allergies": ["Dairy"] },
+      { "title": "Marinara Sauce", "allergies": [] },
+      { "title": "Spinach", "allergies": [] }
+    ],
+    "diet": "Vegetarian"
+  },
+  {
+    "id": 26,
+    "title": "Red Thai Coconut Curry",
+    "readyInMinutes": 35,
+    "timeOfDay": "Dinner",
+    "image": "/images/thai-curry.jpg",
+    "ingredients": [
+      { "title": "Tofu or Chickpeas", "allergies": ["Soy (if tofu is used)"] },
+      { "title": "Coconut Milk", "allergies": [] },
+      { "title": "Red Curry Paste", "allergies": ["Shellfish (check label)"] },
+      { "title": "Mixed Vegetables", "allergies": [] }
+    ],
+    "diet": "Vegan"
+  },
+  {
+    "id": 27,
+    "title": "Fish Tacos with Lime Crema",
+    "readyInMinutes": 30,
+    "timeOfDay": "Dinner",
+    "image": "/images/fish-tacos.jpg",
+    "ingredients": [
+      { "title": "White Fish (Cod or Tilapia)", "allergies": ["Fish"] },
+      { "title": "Corn Tortillas", "allergies": [] },
+      { "title": "Cabbage Slaw", "allergies": [] },
+      { "title": "Lime Crema", "allergies": ["Dairy"] }
+    ],
+    "diet": "Pescatarian"
+  },
+  {
+    "id": 28,
+    "title": "Lentil Shepherd's Pie",
+    "readyInMinutes": 55,
+    "timeOfDay": "Dinner",
+    "image": "/images/lentil-pie.jpg",
+    "ingredients": [
+      { "title": "Brown Lentils", "allergies": [] },
+      { "title": "Mixed Vegetables (Peas, Carrots)", "allergies": [] },
+      { "title": "Mashed Potato Topping", "allergies": ["Dairy (if made with butter/milk)"] }
+    ],
+    "diet": "Vegan"
+  },
+  {
+    "id": 29,
+    "title": "Steak with Roasted Potatoes",
+    "readyInMinutes": 40,
+    "timeOfDay": "Dinner",
+    "image": "/images/steak-potatoes.jpg",
+    "ingredients": [
+      { "title": "Beef Steak", "allergies": [] },
+      { "title": "Potatoes", "allergies": [] },
+      { "title": "Rosemary & Garlic", "allergies": [] },
+      { "title": "Butter", "allergies": ["Dairy"] }
+    ],
+    "diet": "None"
+  },
+  {
+    "id": 30,
+    "title": "Classic Eggplant Parmesan",
+    "readyInMinutes": 50,
+    "timeOfDay": "Dinner",
+    "image": "/images/eggplant-parm.jpg",
+    "ingredients": [
+      { "title": "Eggplant", "allergies": [] },
+      { "title": "Breadcrumbs", "allergies": ["Gluten"] },
+      { "title": "Marinara Sauce", "allergies": [] },
+      { "title": "Mozzarella & Parmesan Cheese", "allergies": ["Dairy"] }
+    ],
+    "diet": "Vegetarian"
+  }
+]
