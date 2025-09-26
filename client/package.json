@@ -2,8 +2,6 @@
   "name": "meal-planner",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dav1dm0.github.io/meal-planner",
-  "proxy": "https://pjcnmm5h-5000.uks1.devtunnels.ms/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
