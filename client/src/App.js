@@ -17,9 +17,9 @@ export default function App() {
   useEffect(() => {
     const checkAuth = () => {
       const token = localStorage.getItem('authToken');
-      setUser(!!token);  
+      setUser(!!token);
     };
-    
+
     checkAuth();
     window.addEventListener('storage', checkAuth);
     return () => window.removeEventListener('storage', checkAuth);
@@ -29,20 +29,20 @@ export default function App() {
     <ErrorBoundary>
       <BrowserRouter>
         <Navbar />
-        <div className="bg-gray-100 min-h-screen pt-16"> 
+        <div className="bg-gray-100 min-h-screen pt-16">
 
-        <Routes>
-          <Route path="/meal-planner" element={<Home user={user}/>} />
-          <Route path="/login" element={<AuthForm onLogin={setUser} />} />
-          
-          <Route element={<ProtectedRoute user={user}/>}>
-            <Route path="/dashboard" element={<Dashboard user={user} onLogout={() => setUser(null)} />} />
-            <Route path="/leaderboard" element={<LeaderboardPage />} />
-            <Route path="/settings" element={<Settings />} />
-          </Route>
+          <Routes>
+            <Route path="/" element={<Home user={user} />} />
+            <Route path="/login" element={<AuthForm onLogin={setUser} />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            <Route element={<ProtectedRoute user={user} />}>
+              <Route path="/dashboard" element={<Dashboard user={user} onLogout={() => setUser(null)} />} />
+              <Route path="/leaderboard" element={<LeaderboardPage />} />
+              <Route path="/settings" element={<Settings />} />
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
 
         </div>
       </BrowserRouter>
