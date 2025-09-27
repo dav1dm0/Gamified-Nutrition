@@ -25,6 +25,10 @@ app.use(express.json());
 app.use(secureHeaders);
 app.use(apiLimiter);
 
+app.get('/', (req, res) => {
+  res.status(200).send('OK');
+});
+
 app.use('/api/auth', userRoutes);
 app.use('/api/users', authenticate, userRoutes);
 app.use('/api/users/preferences', authenticate, prefsRoutes);
