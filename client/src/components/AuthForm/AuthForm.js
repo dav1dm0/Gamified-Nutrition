@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
-import { login, register, setAuthToken } from '../../api'; 
+import { login, register, setAuthToken } from '../../api';
 import './AuthForm.css';
 
 export default function AuthForm() {
@@ -14,16 +14,15 @@ export default function AuthForm() {
     const { username, password } = formData;
     try {
       const res = isLogin
-      ? await login({ username, password })
-      : await register({ username, password });
+        ? await login({ username, password })
+        : await register({ username, password });
 
-      const token = res.data.token; 
+      const token = res.data.token;
 
       if (!token) {
         console.error('Login did not return a token:', res.data);
         return;
       }
-      console.log('Token stored:', token);
       setAuthToken(token);
       localStorage.setItem('token', token);
 
@@ -44,20 +43,20 @@ export default function AuthForm() {
           type="text"
           placeholder="Username"
           value={formData.username}
-          onChange={(e) => setFormData({...formData, username: e.target.value})}
+          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
           required
         />
         <input
           type="password"
           placeholder="Password"
           value={formData.password}
-          onChange={(e) => setFormData({...formData, password: e.target.value})}
+          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           required
         />
         <button type="submit">{isLogin ? 'Login' : 'Register'}</button>
       </form>
-      <button 
-        className="toggle-auth" 
+      <button
+        className="toggle-auth"
         onClick={() => setIsLogin(!isLogin)}
       >
         {isLogin ? 'Need an account? Register' : 'Have an account? Login'}

@@ -5,7 +5,7 @@ export default function PetDisplay({ level, petType }) {
   if (!petType) petType = 'cat';
   if (!level) level = 0;
   if (level > 2) level = 2;
-  const imgSrc = `/meal-planner/images/${petType}-${stages[level]}.png`;
+  const imgSrc = `/images/${petType}-${stages[level]}.png`;
 
   return (
     <img
