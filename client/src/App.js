@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AuthForm from './components/AuthForm/AuthForm';
 import Dashboard from './app/Dashboard/Dashboard';
 import LeaderboardPage from './app/LeaderboardPage/LeaderboardPage';
+import PetPage from './app/PetPage/PetPage';
 import Navbar from './components/Navbar/Navbar';
 import NotFound from './app/NotFound/NotFound';
 import './styles/global.css';
@@ -37,6 +38,7 @@ export default function App() {
 
             <Route element={<ProtectedRoute user={user} />}>
               <Route path="/dashboard" element={<Dashboard user={user} onLogout={() => setUser(null)} />} />
+              <Route path="/pet" element={<PetPage />} />
               <Route path="/leaderboard" element={<LeaderboardPage />} />
               <Route path="/settings" element={<Settings />} />
             </Route>

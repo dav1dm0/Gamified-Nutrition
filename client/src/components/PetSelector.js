@@ -1,30 +1,34 @@
 import { useState, useEffect } from 'react';
-import { getUserProfile, setPet, getPet } from '../api';
+import { getUserProfile, setPet } from '../api';
 
 export default function PetSelector() {
-  const [petType, setPetType] = useState('cat');
+  const [selectedPet, setSelectedPet] = useState('cat');
 
-  useEffect(() => {
-    getUserProfile().then(({ data }) => {
-      if (data.petType) setPetType(data.petType);
-    });
-  }, []);
-
-  const handleSave = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    await setPet({ petType });
+    try {
+      await setPet({ petType: selectedPet });
+      alert('Pet preference saved!');
+    } catch (error) {
+      console.error('Failed to save pet preference:', error);
+      alert('Failed to save pet preference.');
+    }
+  };
+
+  const handleChange = (e) => {
+    setSelectedPet(e.target.value);
   };
 
   return (
-    <form onSubmit={handleSave} className="p-4">
+    <form onSubmit={onSubmit} className="p-4">
       <h3 className="text-xl font-semibold mb-2">Choose your pet</h3>
       <label className="inline-flex items-center mr-4">
         <input
           type="radio"
           name="pet"
           value="cat"
-          checked={petType === 'cat'}
-          onChange={(e) => setPetType(e.target.value)}
+          checked={selectedPet === 'cat'}
+          onChange={handleChange}
           className="mr-1"
         />
         Cat
@@ -34,18 +38,20 @@ export default function PetSelector() {
           type="radio"
           name="pet"
           value="dog"
-          checked={petType === 'dog'}
-          onChange={(e) => setPetType(e.target.value)}
+          checked={selectedPet === 'dog'}
+          onChange={handleChange}
           className="mr-1"
         />
         Dog
       </label>
       <button
         type="submit"
-        className="ml-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+        className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mt-4"
       >
         Save
       </button>
     </form>
   );
 }
+
+
