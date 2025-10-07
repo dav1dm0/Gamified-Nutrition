@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PetDisplay from '../../components/PetDisplay';
 import LevelUpModal from '../../components/LevelUpModal/LevelUpModal';
-import MealCard from '../../components/MealCard/MealCard';
-import mealsData from '../../data/meals.json';
 import { getUserProfile, completeMeal } from '../../api';
 import './Dashboard.css';
 
@@ -11,7 +9,6 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showLevelUp, setShowLevelUp] = useState(false);
-  const [meals, setMeals] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,15 +29,6 @@ export default function Dashboard() {
     fetchData();
   }, [navigate]);
 
-  useEffect(() => {
-    // Initialize 3 random meals (one for each time)
-    const times = ['Breakfast', 'Lunch', 'Dinner'];
-    const randomMeals = times.map((time) => {
-      const options = mealsData.filter((m) => m.timeOfDay === time);
-      return options[Math.floor(Math.random() * options.length)];
-    });
-    setMeals(randomMeals);
-  }, []);
 
   const handleCompleteMeal = async () => {
     try {
@@ -52,17 +40,6 @@ export default function Dashboard() {
     } catch (err) {
       console.error('Error completing meal:', err);
     }
-  };
-
-  const replaceMeal = (index) => {
-    const time = meals[index].timeOfDay;
-    const options = mealsData.filter((m) => m.timeOfDay === time && m.id !== meals[index].id);
-    const replacement = options[Math.floor(Math.random() * options.length)];
-    setMeals((prev) => {
-      const updated = [...prev];
-      updated[index] = replacement;
-      return updated;
-    });
   };
 
   if (loading) {
@@ -92,7 +69,7 @@ export default function Dashboard() {
               <p className="text-4xl font-semibold text-green-600">{user.points}</p>
             </div>
             <div className="mt-4">
-              <p className="text-gray-500">Level</p>
+              <p className="level-display text-gray-500">Level</p>
               <p className="text-4xl font-semibold text-blue-600">{user.level}</p>
             </div>
             <button
@@ -105,15 +82,6 @@ export default function Dashboard() {
         </div>
         <LevelUpModal isOpen={showLevelUp} onClose={() => setShowLevelUp(false)} />
 
-        {/* Meals Card */}
-        <div className="mt-10">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Today's Meals</h2>
-          <div className="grid gap-4 md:grid-cols-3">
-            {meals.map((meal, idx) => (
-              <MealCard key={meal.id} meal={meal} onReplace={() => replaceMeal(idx)} />
-            ))}
-          </div>
-        </div>
       </div>
 
     </>

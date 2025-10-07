@@ -5,7 +5,7 @@ import * as api from '../../api';
 
 export default function Navbar() {
   const navigate = useNavigate();
-  
+
   const handleLogout = async () => {
     try {
       await api.logout();
@@ -19,6 +19,7 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="nav-links">
         <Link to="/dashboard">Dashboard</Link>
+        <Link to="/meals">Meals</Link>
         <Link to="/pet">Pet</Link>
         <Link to="/leaderboard">Leaderboard</Link>
         <Link to="/settings">Settings</Link>
