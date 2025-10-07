@@ -33,7 +33,7 @@ app.use('/api/auth', userRoutes);
 app.use('/api/users', authenticate, userRoutes);
 app.use('/api/users/preferences', authenticate, prefsRoutes);
 app.use('/api/points', authenticate, gamificationRoutes);
-app.use('/api/leaderboard', authenticate, leaderboardRoutes);
+app.use('/api/leaderboard', leaderboardRoutes);
 
 
 

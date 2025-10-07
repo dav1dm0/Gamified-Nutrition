@@ -1,65 +1,50 @@
-.dashboard-container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.card {
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  text-align: center;
-}
-
-.card h2 {
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
-  color: #333333;
-}
-
-.stats {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.stats p {
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
-}
-
-.complete-meal-btn {
-  margin-top: 1rem;
-  padding: 0.75rem;
-  background-color: #4361ee;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.complete-meal-btn:hover {
-  background-color: #3a56d4;
-}
-
 .pet-img {
   width: 150px;
   height: 150px;
   object-fit: contain;
-  /* Ensures the image fits without being distorted */
   margin: 0 auto;
-  /* Center the image if its container is wider */
 }
 
 .level-display {
   font-family: 'Press Start 2P', cursive;
   color: #3b82f6;
-  font-size: 1.5rem;
+  /* Blue-500 */
+  font-size: 2.25rem;
+  /* text-4xl */
+  line-height: 2.5rem;
+  font-weight: 600;
+  /* semibold */
   text-shadow: 2px 2px #e5e7eb;
-  /* A subtle shadow for a retro feel */
+}
+
+.pet-title {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.25rem;
+  /* text-xl */
+  font-weight: 600;
+  /* semibold */
+  color: #4b5563;
+  /* gray-600 */
+  margin-bottom: 1rem;
+}
+
+.complete-meal-button {
+  margin-top: 1.5rem;
+  width: 100%;
+  background-image: linear-gradient(to right, #4f46e5, #7c3aed);
+  /* Indigo-600 to Purple-600 */
+  color: white;
+  font-weight: 600;
+  /* semibold */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  /* rounded-lg */
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.complete-meal-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }

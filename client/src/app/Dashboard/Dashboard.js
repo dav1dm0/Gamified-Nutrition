@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import PetDisplay from '../../components/PetDisplay';
 import LevelUpModal from '../../components/LevelUpModal/LevelUpModal';
 import { getUserProfile, completeMeal } from '../../api';
@@ -14,10 +14,8 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const [uRes] = await Promise.all(
-          [getUserProfile()]
-        );
-        setUser(uRes.data);
+        const { data } = await getUserProfile();
+        setUser(data.user);
       } catch (err) {
         console.error('Fetch error:', err);
         navigate('/login');
@@ -29,14 +27,18 @@ export default function Dashboard() {
     fetchData();
   }, [navigate]);
 
-
   const handleCompleteMeal = async () => {
+    if (!user) return;
     try {
       const res = await completeMeal();
       const { points, level } = res.data;
       const leveledUp = level > user.level;
-      setUser((u) => ({ ...u, points, level }));
-      if (leveledUp) setShowLevelUp(true);
+
+      setUser((currentUser) => ({ ...currentUser, points, level }));
+
+      if (leveledUp) {
+        setShowLevelUp(true);
+      }
     } catch (err) {
       console.error('Error completing meal:', err);
     }
@@ -44,8 +46,16 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="flex items-center justify-center h-screen">
         <p className="text-gray-600">Loading Dashboard…</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-red-600">Could not load user data. Please try logging in again.</p>
       </div>
     );
   }
@@ -58,8 +68,8 @@ export default function Dashboard() {
         <div className="grid gap-6 md:grid-cols-2">
           {/* Pet Card */}
           <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+            <p className="pet-title">Your Pet</p>
             <PetDisplay level={user.level} petType={user.petType} />
-            <p className="mt-4 text-gray-700">Your Pet</p>
           </div>
 
           {/* Stats Card */}
@@ -69,21 +79,28 @@ export default function Dashboard() {
               <p className="text-4xl font-semibold text-green-600">{user.points}</p>
             </div>
             <div className="mt-4">
-              <p className="level-display text-gray-500">Level</p>
-              <p className="text-4xl font-semibold text-blue-600">{user.level}</p>
+              <p className="text-gray-500">Level</p>
+              <p className="level-display">{user.level}</p>
             </div>
             <button
               onClick={handleCompleteMeal}
-              className="mt-6 w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 rounded-lg transition"
+              className="complete-meal-button"
             >
-              Complete Meal
+              I've Completed a Meal!
             </button>
           </div>
         </div>
+
+        {/* Link to Meals Page */}
+        <div className="mt-8 text-center">
+          <Link to="/meals" className="text-lg text-indigo-600 hover:text-indigo-800 font-semibold">
+            Go to Today's Meals →
+          </Link>
+        </div>
+
         <LevelUpModal isOpen={showLevelUp} onClose={() => setShowLevelUp(false)} />
-
       </div>
-
     </>
   );
 }
+
