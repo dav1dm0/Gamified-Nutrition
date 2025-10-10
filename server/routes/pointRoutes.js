@@ -10,8 +10,8 @@ router.post('/complete', authenticate, async (req, res) => {
     // Add points and recalculate level
     const result = await db.query(
       `UPDATE users
-       SET points = points + 3,
-           level = FLOOR((points + 3) / 7) + 1
+       SET points = points + 1,
+           level = FLOOR((points + 1) / 7) + 1
        WHERE id = $1
        RETURNING points, level`,
       [userId]

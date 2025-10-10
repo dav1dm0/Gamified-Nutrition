@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getUserProfile, setPet } from '../api';
+import { updateUserPreferences } from '../api';
 
 export default function PetSelector() {
   const [selectedPet, setSelectedPet] = useState('cat');
@@ -7,8 +7,9 @@ export default function PetSelector() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      await setPet({ petType: selectedPet });
+      await updateUserPreferences({ petType: selectedPet });
       alert('Pet preference saved!');
+      window.location.reload();
     } catch (error) {
       console.error('Failed to save pet preference:', error);
       alert('Failed to save pet preference.');
