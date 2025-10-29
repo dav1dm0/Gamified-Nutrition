@@ -14,6 +14,9 @@ importers:
 
   apps/nutrition-api:
     dependencies:
+      '@nutrition-app/types':
+        specifier: workspace:*
+        version: link:../../libs/types
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
@@ -51,6 +54,9 @@ importers:
 
   apps/nutrition-web:
     dependencies:
+      '@nutrition-app/types':
+        specifier: workspace:*
+        version: link:../../libs/types
       axios:
         specifier: ^1.9.0
         version: 1.13.1

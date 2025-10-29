@@ -7,6 +7,7 @@
         "dev": "nodemon server.js"
     },
     "dependencies": {
+        "@nutrition-app/types": "workspace:*",
         "bcrypt": "^5.1.1",
         "bcryptjs": "^3.0.2",
         "cors": "^2.8.5",
