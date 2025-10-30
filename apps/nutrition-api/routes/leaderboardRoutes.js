@@ -1,7 +1,13 @@
-const express = require('express');
+import "@nutrition-app/types";
+import express from 'express';
 const router = express.Router();
-const db = require('../db');
+import db from '../db.js';
 
+/**
+ * Get the top 10 leaderboard
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
 router.get('/', async (req, res) => {
   try {
     const result = await db.query(
@@ -15,11 +21,13 @@ router.get('/', async (req, res) => {
       ORDER BY level DESC, points DESC
       LIMIT 10`
     );
-    res.json(result.rows);
+    /** @type {LeaderboardEntry[]} */
+    const leaderboard = result.rows;
+    res.json(leaderboard);
   } catch (error) {
     console.error('Failed to fetch leaderboard:', error);
     res.status(500).json({ error: 'Failed to fetch leaderboard' });
   }
 });
 
-module.exports = router;
+export default router;

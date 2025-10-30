@@ -1,9 +1,14 @@
-const express = require('express');
+import "@nutrition-app/types";
+import express from 'express';
 const router = express.Router();
-const db = require('../db');
-const { authenticate } = require('../middleware/security');
+import db from '../db.js';
+import { authenticate } from '../middleware/security.js';
 
-// Update points and level
+/**
+ * Update points and level
+ * @param {import('express').Request & { user: { id: string } }} req
+ * @param {import('express').Response} res
+ */
 router.post('/complete', authenticate, async (req, res) => {
   try {
     const { id: userId } = req.user;
@@ -19,14 +24,20 @@ router.post('/complete', authenticate, async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'User not found' });
     }
-    return res.json(result.rows[0]);
+    /** @type {PointsAndLevel} */
+    const newStats = result.rows[0];
+    return res.json(newStats);
   } catch (err) {
     console.error('Error completing meal:', err);
     return res.status(500).json({ error: 'Server error' });
   }
 });
 
-
+/**
+ * Get current points and level
+ * @param {import('express').Request & { user: { id: string } }} req
+ * @param {import('express').Response} res
+ */
 router.get('/', authenticate, async (req, res) => {
   try {
     const { id: userId } = req.user;
@@ -37,11 +48,13 @@ router.get('/', authenticate, async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'User not found' });
     }
-    return res.json(result.rows[0]);
+    /** @type {PointsAndLevel} */
+    const stats = result.rows[0];
+    return res.json(stats);
   } catch (err) {
     console.error('Error fetching points:', err);
     return res.status(500).json({ error: 'Server error' });
   }
 });
 
-module.exports = router;
+export default router;

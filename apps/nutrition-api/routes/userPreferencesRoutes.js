@@ -1,9 +1,15 @@
-const express = require('express');
+import "@nutrition-app/types";
+import express from 'express';
 const router = express.Router();
-const db = require('../db');
-const { authenticate } = require('../middleware/security');
+import db from '../db.js';
+import { authenticate } from '../middleware/security.js';
 
-// GET current user's preferences
+
+/**
+ * GET current user's preferences
+ * @param {import('express').Request & { user: { id: string } }} req
+ * @param {import('express').Response} res
+ */
 router.get('/', authenticate, async (req, res) => {
   try {
     const { id: userId } = req.user;
@@ -14,16 +20,24 @@ router.get('/', authenticate, async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.json(result.rows[0]);
+    /** @type {UserPreferences} */
+    const preferences = result.rows[0];
+    res.json(preferences);
   } catch (err) {
     console.error('Error fetching preferences:', err);
     res.status(500).json({ error: 'Failed to fetch preferences' });
   }
 });
 
-// UPDATE user's preferences (handles petType, hideLeaderboard, and hidePet)
+/**
+ * UPDATE user's preferences
+ * @param {import('express').Request & { user: { id: string } }} req
+ * @param {import('express').Response} res
+ */
 router.put('/', authenticate, async (req, res) => {
   const { id: userId } = req.user;
+
+  /** @type {Partial<UserPreferences>} */
   const { petType, hideLeaderboard, hidePet } = req.body;
 
   try {
@@ -39,7 +53,7 @@ router.put('/', authenticate, async (req, res) => {
     const newHideLeaderboard = typeof hideLeaderboard === 'boolean' ? hideLeaderboard : currentUser.hideleaderboard;
     const newHidePet = typeof hidePet === 'boolean' ? hidePet : currentUser.hidepet;
 
-    if (!['cat', 'dog'].includes(newPetType)) {
+    if (newPetType && !['cat', 'dog'].includes(newPetType)) {
       return res.status(400).json({ error: 'Invalid pet type' });
     }
 
@@ -51,11 +65,13 @@ router.put('/', authenticate, async (req, res) => {
       [newPetType, newHideLeaderboard, newHidePet, userId]
     );
 
-    res.json(updateResult.rows[0]);
+    /** @type {UserPreferences} */
+    const updatedPreferences = updateResult.rows[0];
+    res.json(updatedPreferences); s
   } catch (err) {
     console.error('Error updating preferences:', err);
     res.status(500).json({ error: 'Failed to update preferences' });
   }
 });
 
-module.exports = router;
+export default router;

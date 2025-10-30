@@ -1,5 +1,5 @@
-const { Pool } = require('pg');
-require('dotenv').config();
+import { Pool } from 'pg';
+import 'dotenv/config';
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -9,6 +9,6 @@ const pool = new Pool({
   }
 });
 
-module.exports = {
+export default {
   query: (text, params) => pool.query(text, params),
 };

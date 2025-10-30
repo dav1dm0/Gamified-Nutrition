@@ -1,11 +1,14 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const db = require('../db');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
-const { authenticate } = require('../middleware/security');
-
-// Register
+import db from '../db.js';
+import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
+import { authenticate } from '../middleware/security.js';
+/**
+ * Register a new user.
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -33,7 +36,11 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login
+/**
+ * Log in a user.
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -57,7 +64,11 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Get current user profile (protected route)
+/**
+ * Get current user profile (protected route).
+ * @param {import('express').Request & { user: { id: string } }} req
+ * @param {import('express').Response} res
+ */
 router.get('/me', authenticate, async (req, res) => {
   try {
     const result = await db.query(
@@ -67,6 +78,7 @@ router.get('/me', authenticate, async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'User not found' });
     }
+    /** @type {User} */
     res.json({ user: result.rows[0] });
   } catch (error) {
     console.error('Profile error:', error);
@@ -74,7 +86,11 @@ router.get('/me', authenticate, async (req, res) => {
   }
 });
 
-
+/**
+ * Delete a user account (protected route).
+ * @param {import('express').Request & { user: { id: string } }} req
+ * @param {import('express').Response} res
+ */
 router.delete('/delete', authenticate, async (req, res) => {
   try {
     await db.query('DELETE FROM users WHERE id = $1', [req.user.id]);
@@ -84,4 +100,4 @@ router.delete('/delete', authenticate, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

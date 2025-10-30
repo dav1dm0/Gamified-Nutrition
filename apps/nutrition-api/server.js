@@ -1,18 +1,20 @@
-require('dotenv').config();
-const express = require('express');
+import 'dotenv/config';
+import express from 'express';
+
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+import { secureHeaders, apiLimiter, authenticate } from './middleware/security.js';
+
+import userRoutes from './routes/userRoutes.js';
+import pointRoutes from './routes/pointRoutes.js';
+import leaderboardRoutes from './routes/leaderboardRoutes.js';
+import prefsRoutes from './routes/userPreferencesRoutes.js';
+
 const app = express();
-
-const cors = require('cors');
-const path = require('path');
-
-const { secureHeaders, apiLimiter } = require('./middleware/security');
-const { authenticate } = require('./middleware/security');
-
-const userRoutes = require('./routes/userRoutes');
-const prefsRoutes = require('./routes/userPreferencesRoutes');
-const leaderboardRoutes = require('./routes/leaderboardRoutes');
-const gamificationRoutes = require('./routes/pointRoutes');
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // Middleware
 app.use(cors({
   origin: process.env.CORS_ORIGIN,
@@ -32,7 +34,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', userRoutes);
 app.use('/api/users', authenticate, userRoutes);
 app.use('/api/users/preferences', authenticate, prefsRoutes);
-app.use('/api/points', authenticate, gamificationRoutes);
+app.use('/api/points', authenticate, pointRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 
 

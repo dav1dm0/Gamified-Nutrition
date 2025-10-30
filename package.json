@@ -1,6 +1,7 @@
 {
   "name": "gamified-nutrition-app",
   "private": true,
+  "packageManager": "pnpm@8.6.0",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",

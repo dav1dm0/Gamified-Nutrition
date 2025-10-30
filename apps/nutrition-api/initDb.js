@@ -1,4 +1,4 @@
-const db = require('./db');
+import db from './db.js';
 
 const createTables = async () => {
   const queryText = `

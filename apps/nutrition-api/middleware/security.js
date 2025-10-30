@@ -1,9 +1,10 @@
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-const jwt = require('jsonwebtoken');
+import "@nutrition-app/types";
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import jwt from 'jsonwebtoken';
 
 // Security headers middleware
-exports.secureHeaders = helmet({
+export const secureHeaders = helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
@@ -18,7 +19,7 @@ exports.secureHeaders = helmet({
 });
 
 // Rate limiting
-exports.apiLimiter = rateLimit({
+export const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 250, // limit each IP to 250 requests per windowMs
   standardHeaders: true,
@@ -27,9 +28,14 @@ exports.apiLimiter = rateLimit({
     error: 'Too many requests, please try again later'
   }
 });
-
-// Authentication middleware
-exports.authenticate = (req, res, next) => {
+/**
+ * Authentication middleware.
+ * Verifies JWT and attaches payload to `req.user`.
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
+ */
+export const authenticate = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
 
   if (!token) {
