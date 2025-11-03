@@ -1,7 +1,7 @@
 import "@nutrition-app/types";
 import express from 'express';
 const router = express.Router();
-import db from '../db.js';
+import db from '../db/index.js';
 
 /**
  * Get the top 10 leaderboard
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
         level,
         points
       FROM users
-      WHERE hideLeaderboard = false
+      WHERE hideleaderboard = false
       ORDER BY level DESC, points DESC
       LIMIT 10`
     );

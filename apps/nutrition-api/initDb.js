@@ -1,4 +1,4 @@
-import db from './db.js';
+import db from './db/index.js';
 
 const createTables = async () => {
   const queryText = `
@@ -11,6 +11,8 @@ const createTables = async () => {
       petType         TEXT DEFAULT 'cat',
       hideLeaderboard BOOLEAN DEFAULT false,
       hidePet         BOOLEAN DEFAULT false,
+      refresh_token_hash TEXT DEFAULT NULL,
+      refresh_token_expires_at TIMESTAMPTZ DEFAULT NULL,
       points          INTEGER DEFAULT 0,
       level           INTEGER DEFAULT 1,
       created_at      TIMESTAMPTZ DEFAULT NOW()
@@ -19,6 +21,9 @@ const createTables = async () => {
 
   try {
     await db.query(queryText);
+    // Ensure new columns exist when upgrading an existing DB
+    await db.query("ALTER TABLE users ADD COLUMN IF NOT EXISTS refresh_token_hash TEXT DEFAULT NULL;");
+    await db.query("ALTER TABLE users ADD COLUMN IF NOT EXISTS refresh_token_expires_at TIMESTAMPTZ DEFAULT NULL;");
     console.log('✅ Database tables are ready.');
   } catch (err) {
     console.error('Error creating database tables:', err);

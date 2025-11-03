@@ -1,7 +1,7 @@
 import "@nutrition-app/types";
 import express from 'express';
 const router = express.Router();
-import db from '../db.js';
+import db from '../db/index.js';
 import { authenticate } from '../middleware/security.js';
 
 
@@ -14,7 +14,7 @@ router.get('/', authenticate, async (req, res) => {
   try {
     const { id: userId } = req.user;
     const result = await db.query(
-      'SELECT petType, hideLeaderboard, hidePet FROM users WHERE id = $1',
+      'SELECT pettype as "petType", hideleaderboard as "hideLeaderboard", hidepet as "hidePet" FROM users WHERE id = $1',
       [userId]
     );
     if (result.rows.length === 0) {
@@ -59,15 +59,15 @@ router.put('/', authenticate, async (req, res) => {
 
     const updateResult = await db.query(
       `UPDATE users
-       SET petType = $1, hideLeaderboard = $2, hidePet = $3
+       SET pettype = $1, hideleaderboard = $2, hidepet = $3
        WHERE id = $4
-       RETURNING petType, hideLeaderboard, hidePet`,
+       RETURNING pettype as "petType", hideleaderboard as "hideLeaderboard", hidepet as "hidePet"`,
       [newPetType, newHideLeaderboard, newHidePet, userId]
     );
 
     /** @type {UserPreferences} */
     const updatedPreferences = updateResult.rows[0];
-    res.json(updatedPreferences); s
+    res.json(updatedPreferences);
   } catch (err) {
     console.error('Error updating preferences:', err);
     res.status(500).json({ error: 'Failed to update preferences' });

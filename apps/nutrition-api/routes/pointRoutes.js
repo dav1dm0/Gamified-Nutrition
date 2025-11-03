@@ -1,7 +1,7 @@
 import "@nutrition-app/types";
 import express from 'express';
 const router = express.Router();
-import db from '../db.js';
+import db from '../db/index.js';
 import { authenticate } from '../middleware/security.js';
 
 /**
