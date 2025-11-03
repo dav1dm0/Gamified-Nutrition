@@ -1,31 +1,43 @@
-# === Build Stage ===
-# Build the React Frontend (nutrition-web)
-FROM node:20-slim as client-builder
-WORKDIR /app
-COPY apps/nutrition-web/package.json  ./apps/nutrition-web/
-COPY apps/nutrition-web/public/ ./apps/nutrition-web/public/
-COPY apps/nutrition-web/src/ ./apps/nutrition-web/src/
+# === Base Stage (to get pnpm) ===
+FROM node:20-slim AS base
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Install dependencies and build the client
-WORKDIR /app/apps/nutrition-web
-RUN npm install
-RUN npm run build
+# === Builder Stage ===
+# 1. Build the React Frontend (nutrition-web)
+FROM base AS client-builder
+WORKDIR /app
+
+# Copy ALL package files and monorepo config
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+
+# Copy source code for ALL apps/libs needed for the build
+COPY ./apps ./apps
+COPY ./libs ./libs
+
+# Install all dependencies (including devDependencies)
+RUN pnpm install --prod=false 
+
+# Build the frontend (nutrition-web)
+RUN pnpm turbo build --filter=nutrition-web
 
 # === Production Stage ===
-# Build the Node.js Server (nutrition-api)
-FROM node:20-slim
+# 2. Build the Node.js Server (nutrition-api)
+FROM base
 WORKDIR /app
 
-# Copy server dependencies and install
-COPY apps/nutrition-api/package.json ./apps/nutrition-api/
-RUN cd apps/nutrition-api && npm install --production
+# Copy root dependency files
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
 
-# Copy server source code
-COPY apps/nutrition-api/ ./apps/nutrition-api/
+# Copy source code for ALL apps/libs
+COPY ./apps ./apps
+COPY ./libs ./libs
+
+# Install ONLY production dependencies
+RUN pnpm install --prod
 
 # Copy the built React app from the "Build Stage"
 COPY --from=client-builder /app/apps/nutrition-web/build ./apps/nutrition-api/build
 
-# Tell GCP how to start  app
-
+# Start the server
 CMD ["node", "apps/nutrition-api/server.js"]
