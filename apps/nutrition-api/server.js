@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
-
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -15,6 +15,7 @@ import prefsRoutes from './routes/userPreferencesRoutes.js';
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 // Middleware
 app.use(cors({
   origin: process.env.CORS_ORIGIN,
@@ -24,6 +25,7 @@ app.use(cors({
 app.set('trust proxy', 1);
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(secureHeaders);
 app.use(apiLimiter);
 

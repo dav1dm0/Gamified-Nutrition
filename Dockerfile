@@ -2,7 +2,7 @@
 # Build the React Frontend (nutrition-web)
 FROM node:20-slim as client-builder
 WORKDIR /app
-COPY apps/nutrition-web/package.json apps/nutrition-web/package-lock.json ./apps/nutrition-web/
+COPY apps/nutrition-web/package.json  ./apps/nutrition-web/
 COPY apps/nutrition-web/public/ ./apps/nutrition-web/public/
 COPY apps/nutrition-web/src/ ./apps/nutrition-web/src/
 

@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { secureHeaders, apiLimiter } from './middleware/security.js';
+import { secureHeaders, apiLimiter, authenticate } from './middleware/security.js';
 
 import userRoutes from './routes/userRoutes.js';
 import pointRoutes from './routes/pointRoutes.js';
@@ -25,16 +25,16 @@ app.use(cors({
 app.set('trust proxy', 1);
 
 app.use(express.json());
-// Parse cookies for refresh token handling
+
 app.use(cookieParser());
 app.use(secureHeaders);
 app.use(apiLimiter);
 
 
 app.use('/api/auth', userRoutes);
-app.use('/api/users', userRoutes); // protected routes mount will use authenticate where needed inside routes
-app.use('/api/users/preferences', prefsRoutes);
-app.use('/api/points', pointRoutes);
+app.use('/api/users', authenticate, userRoutes); // protected routes mount will use authenticate where needed inside routes
+app.use('/api/users/preferences', authenticate, prefsRoutes);
+app.use('/api/points', authenticate, pointRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 
 // Serve client in production
