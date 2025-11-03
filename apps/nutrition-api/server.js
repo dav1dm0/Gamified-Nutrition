@@ -27,10 +27,6 @@ app.use(express.json());
 app.use(secureHeaders);
 app.use(apiLimiter);
 
-app.get('/', (req, res) => {
-  res.status(200).send('OK');
-});
-
 app.use('/api/auth', userRoutes);
 app.use('/api/users', authenticate, userRoutes);
 app.use('/api/users/preferences', authenticate, prefsRoutes);
@@ -42,11 +38,11 @@ app.use('/api/leaderboard', leaderboardRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   // Serve static files from React build
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.use(express.static(path.join(__dirname, 'build')));
 
   // Handle client-side routing
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
 }
 // Start server

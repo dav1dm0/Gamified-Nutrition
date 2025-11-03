@@ -30,9 +30,6 @@ app.use(cookieParser());
 app.use(secureHeaders);
 app.use(apiLimiter);
 
-app.get('/', (req, res) => {
-    res.status(200).send('OK');
-});
 
 app.use('/api/auth', userRoutes);
 app.use('/api/users', userRoutes); // protected routes mount will use authenticate where needed inside routes
@@ -42,9 +39,9 @@ app.use('/api/leaderboard', leaderboardRoutes);
 
 // Serve client in production
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/build')));
+    app.use(express.static(path.join(__dirname, 'build')));
     app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
     });
 }
 
