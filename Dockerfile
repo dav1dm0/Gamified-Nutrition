@@ -17,6 +17,7 @@ COPY ./libs ./libs
 
 # Install all dependencies (including devDependencies)
 RUN pnpm install --prod=false 
+ENV DISABLE_ESLINT_PLUGIN=true
 
 # Build the frontend (nutrition-web)
 RUN pnpm turbo build --filter=nutrition-web
