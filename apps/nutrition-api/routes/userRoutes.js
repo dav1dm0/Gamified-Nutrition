@@ -3,6 +3,9 @@ const router = express.Router();
 import db from '../db/index.js';
 import jwt from 'jsonwebtoken';
 import dayjs from 'dayjs';
+import redisClient from '../db/redis.js';
+
+const LEADERBOARD_CACHE_KEY = 'leaderboard:top10';
 import crypto from 'crypto';
 import User from '../models/User.js';
 import { authenticate } from '../middleware/security.js';
@@ -194,6 +197,13 @@ router.get('/me', authenticate, async (req, res) => {
 router.delete('/delete', authenticate, async (req, res) => {
   try {
     await db.query('DELETE FROM users WHERE id = $1', [req.user.id]);
+    // Invalidate leaderboard cache (non-fatal)
+    try {
+      await redisClient.del(LEADERBOARD_CACHE_KEY);
+    } catch (cacheErr) {
+      console.warn('Failed to invalidate leaderboard cache after user delete:', cacheErr);
+    }
+
     res.json({ success: true, message: "User account deleted." });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete user' });

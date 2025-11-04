@@ -3,6 +3,9 @@ import express from 'express';
 const router = express.Router();
 import db from '../db/index.js';
 import { authenticate } from '../middleware/security.js';
+import redisClient from '../db/redis.js';
+
+const LEADERBOARD_CACHE_KEY = 'leaderboard:top10';
 
 
 /**
@@ -67,6 +70,15 @@ router.put('/', authenticate, async (req, res) => {
 
     /** @type {UserPreferences} */
     const updatedPreferences = updateResult.rows[0];
+    // If hideLeaderboard changed, invalidate leaderboard cache
+    try {
+      if (newHideLeaderboard !== currentUser.hideleaderboard) {
+        await redisClient.del(LEADERBOARD_CACHE_KEY);
+      }
+    } catch (cacheErr) {
+      console.warn('Failed to invalidate leaderboard cache after preferences update:', cacheErr);
+    }
+
     res.json(updatedPreferences);
   } catch (err) {
     console.error('Error updating preferences:', err);

@@ -3,6 +3,9 @@ import express from 'express';
 const router = express.Router();
 import db from '../db/index.js';
 import { authenticate } from '../middleware/security.js';
+import redisClient from '../db/redis.js';
+
+const LEADERBOARD_CACHE_KEY = 'leaderboard:top10';
 
 /**
  * Update points and level
@@ -26,6 +29,14 @@ router.post('/complete', authenticate, async (req, res) => {
     }
     /** @type {PointsAndLevel} */
     const newStats = result.rows[0];
+
+    // Invalidate cached leaderboard — non-fatal if Redis fails
+    try {
+      await redisClient.del(LEADERBOARD_CACHE_KEY);
+    } catch (cacheErr) {
+      console.warn('Failed to invalidate leaderboard cache after points update:', cacheErr);
+    }
+
     return res.json(newStats);
   } catch (err) {
     console.error('Error completing meal:', err);

@@ -1,16 +1,16 @@
 
 import { Link } from 'react-router-dom';
 
-export default function Home({user}) {
+export default function Home({ user }) {
   return (
     <div className="text-center py-16">
       <h1 className="text-4xl font-bold mb-4 text-emerald-600">
-        Track Your Meals. Earn Rewards.
+        Track Your Meals. Track Your Progress.
       </h1>
       <p className="text-lg text-gray-600 mb-8">
         Simple meal planning with gamified progress tracking
       </p>
-      
+
       <div className="flex gap-4 justify-center">
         <Link
           to={user ? "/dashboard" : "/login"}
