@@ -6,6 +6,8 @@ const createTables = async () => {
       id              SERIAL PRIMARY KEY,
       username        TEXT UNIQUE NOT NULL,
       password        TEXT NOT NULL,
+      refresh_token_hash TEXT,
+      refresh_token_expires_at TIMESTAMPTZ,
       diet            TEXT DEFAULT '',
       allergies       TEXT DEFAULT '[]',
       petType         TEXT DEFAULT 'cat',
