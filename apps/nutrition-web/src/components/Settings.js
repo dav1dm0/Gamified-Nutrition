@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getUserPreferences, updateUserPreferences } from '../api';
 import PetSelector from './PetSelector';
+import Toast from './Toast';
 import './Settings.css';
 
 export default function Settings() {
   const [prefs, setPrefs] = useState({ hideLeaderboard: false, hidePet: false });
+  const [toast, setToast] = useState({ message: '', type: 'success' });
 
   useEffect(() => {
     getUserPreferences().then(({ data }) => {
@@ -12,13 +14,22 @@ export default function Settings() {
         hideLeaderboard: data.hideLeaderboard || false,
         hidePet: data.hidePet || false,
       });
+    }).catch((err) => {
+      console.error('Failed to load preferences:', err);
+      setToast({ message: 'Failed to load preferences', type: 'error' });
     });
   }, []);
 
   const handleToggle = async (e) => {
     const { name, checked } = e.target;
-    await updateUserPreferences({ [name]: checked });
-    setPrefs((prev) => ({ ...prev, [name]: checked }));
+    try {
+      await updateUserPreferences({ [name]: checked });
+      setPrefs((prev) => ({ ...prev, [name]: checked }));
+      setToast({ message: 'Preferences saved', type: 'success' });
+    } catch (err) {
+      console.error('Failed to save preferences:', err);
+      setToast({ message: 'Failed to save preferences', type: 'error' });
+    }
   };
 
   return (
@@ -56,6 +67,12 @@ export default function Settings() {
           <PetSelector />
         </div>
       </div>
+
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ message: '', type: 'success' })}
+      />
     </div>
   );
 }
