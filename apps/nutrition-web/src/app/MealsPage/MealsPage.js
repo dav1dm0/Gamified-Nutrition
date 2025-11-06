@@ -34,14 +34,9 @@ export default function MealsPage() {
                 <h1 className="meals-title">Today&apos;s Meals</h1>
                 <p className="meals-sub">Here are your suggested meals for the day. Click "Replace" to get a new suggestion for that mealtime.</p>
 
-                <div className="meals-sections">
+                <div className="meals-grid">
                     {meals.map((meal, idx) => (
-                        <div key={meal.id} className="meal-time-section">
-                            <h2 className="meal-time-heading">{meal.timeOfDay}</h2>
-                            <div className="meal-time-content">
-                                <MealCard meal={meal} onReplace={() => replaceMeal(idx)} />
-                            </div>
-                        </div>
+                        <MealCard key={meal.id} meal={meal} onReplace={() => replaceMeal(idx)} />
                     ))}
                 </div>
             </div>
