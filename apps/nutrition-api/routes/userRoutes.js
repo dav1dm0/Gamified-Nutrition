@@ -175,7 +175,7 @@ router.post('/logout', (req, res) => {
 router.get('/me', authenticate, async (req, res) => {
   try {
     const result = await db.query(
-      'SELECT id, username, petType, level, points FROM users WHERE id = $1',
+      'SELECT id, username, pettype as "petType", hidepet as "hidePet", level, points FROM users WHERE id = $1',
       [req.user.id]
     );
     if (result.rows.length === 0) {

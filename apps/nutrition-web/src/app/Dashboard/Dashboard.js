@@ -67,10 +67,17 @@ export default function Dashboard() {
 
         <div className="dashboard-grid">
           {/* Pet Card */}
-          <div className="dashboard-card pet-card">
-            <p className="pet-title">Your Pet</p>
-            <PetDisplay level={user.level} petType={user.petType} />
-          </div>
+          {user.hidePet ? (
+            <div className="dashboard-card pet-card hidden-pet-card">
+              <p className="pet-title">Your Pet</p>
+              <p className="pet-hidden-text">Pet display is hidden. Toggle in Settings to show it.</p>
+            </div>
+          ) : (
+            <div className="dashboard-card pet-card">
+              <p className="pet-title">Your Pet</p>
+              <PetDisplay level={user.level} petType={user.petType} />
+            </div>
+          )}
 
           {/* Stats Card */}
           <div className="dashboard-card stats-card">

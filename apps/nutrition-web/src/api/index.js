@@ -37,7 +37,7 @@ export const getUserProfile = () => api.get('/users/me');
 export const deleteUserAccount = () => api.delete('/users/delete');
 
 export const setPet = (petType) => api.put('/users/preferences', { petType });
-export const getUserPreferences = () => api.get('users/preferences')
+export const getUserPreferences = () => api.get('/users/preferences')
 export const updateUserPreferences = (prefs) => api.put('/users/preferences', prefs);
 
 // Points
