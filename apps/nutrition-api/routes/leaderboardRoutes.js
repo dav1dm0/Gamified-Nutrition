@@ -54,7 +54,7 @@ router.get('/', async (req, res) => {
     /** @type {LeaderboardEntry[]} */
     const leaderboard = result.rows;
 
-    // 3) Cache the result with a TTL (configurable via env var)
+    // 3) Cache the result with a TTL
     const ttlSeconds = Number(process.env.LEADERBOARD_CACHE_TTL_SECONDS || 300);
     try {
       await redisClient.set(LEADERBOARD_CACHE_KEY, JSON.stringify(leaderboard), 'EX', ttlSeconds);

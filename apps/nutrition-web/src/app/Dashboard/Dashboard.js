@@ -61,25 +61,25 @@ export default function Dashboard() {
   }
 
   return (
-    <>
-      <div className="max-w-3xl mx-auto p-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
+    <div className="dashboard-container">
+      <div className="dashboard-content">
+        <h1 className="dashboard-title">Dashboard</h1>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="dashboard-grid">
           {/* Pet Card */}
-          <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+          <div className="dashboard-card pet-card">
             <p className="pet-title">Your Pet</p>
             <PetDisplay level={user.level} petType={user.petType} />
           </div>
 
           {/* Stats Card */}
-          <div className="bg-white rounded-xl shadow p-6 flex flex-col justify-between">
-            <div>
-              <p className="text-gray-500">Points</p>
-              <p className="text-4xl font-semibold text-green-600">{user.points}</p>
+          <div className="dashboard-card stats-card">
+            <div className="stat-group">
+              <p className="stat-label">Points</p>
+              <p className="points-display">{user.points}</p>
             </div>
-            <div className="mt-4">
-              <p className="text-gray-500">Level</p>
+            <div className="stat-group">
+              <p className="stat-label">Level</p>
               <p className="level-display">{user.level}</p>
             </div>
             <button
@@ -92,15 +92,15 @@ export default function Dashboard() {
         </div>
 
         {/* Link to Meals Page */}
-        <div className="mt-8 text-center">
-          <Link to="/meals" className="text-lg text-indigo-600 hover:text-indigo-800 font-semibold">
+        <div className="meals-link-container">
+          <Link to="/meals" className="meals-link">
             Go to Today's Meals →
           </Link>
         </div>
 
         <LevelUpModal isOpen={showLevelUp} onClose={() => setShowLevelUp(false)} />
       </div>
-    </>
+    </div>
   );
 }
 
