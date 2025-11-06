@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MealCard from '../../components/MealCard/MealCard';
 import mealsData from '../../data/meals.json';
+import './MealsPage.css';
 
 export default function MealsPage() {
     const [meals, setMeals] = useState([]);
@@ -28,13 +29,16 @@ export default function MealsPage() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-6">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">Today's Meals</h1>
-            <p className="text-gray-600 mb-6">Here are your suggested meals for the day. Click "Replace" to get a new suggestion for that mealtime.</p>
-            <div className="grid gap-6 md:grid-cols-3">
-                {meals.map((meal, idx) => (
-                    <MealCard key={meal.id} meal={meal} onReplace={() => replaceMeal(idx)} />
-                ))}
+        <div className="meals-container">
+            <div className="meals-content">
+                <h1 className="meals-title">Today&apos;s Meals</h1>
+                <p className="meals-sub">Here are your suggested meals for the day. Click "Replace" to get a new suggestion for that mealtime.</p>
+
+                <div className="meals-grid">
+                    {meals.map((meal, idx) => (
+                        <MealCard key={meal.id} meal={meal} onReplace={() => replaceMeal(idx)} />
+                    ))}
+                </div>
             </div>
         </div>
     );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { updateUserPreferences } from '../api';
+import './PetSelector.css';
 
 export default function PetSelector() {
   const [selectedPet, setSelectedPet] = useState('cat');
@@ -21,36 +22,31 @@ export default function PetSelector() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="p-4">
-      <h3 className="text-xl font-semibold mb-2">Choose your pet</h3>
-      <label className="inline-flex items-center mr-4">
-        <input
-          type="radio"
-          name="pet"
-          value="cat"
-          checked={selectedPet === 'cat'}
-          onChange={handleChange}
-          className="mr-1"
-        />
-        Cat
-      </label>
-      <label className="inline-flex items-center">
-        <input
-          type="radio"
-          name="pet"
-          value="dog"
-          checked={selectedPet === 'dog'}
-          onChange={handleChange}
-          className="mr-1"
-        />
-        Dog
-      </label>
-      <button
-        type="submit"
-        className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mt-4"
-      >
-        Save
-      </button>
+    <form onSubmit={onSubmit} className="petselector-form">
+      <h3 className="petselector-title">Choose your pet</h3>
+      <div className="pet-options">
+        <label className="pet-option">
+          <input
+            type="radio"
+            name="pet"
+            value="cat"
+            checked={selectedPet === 'cat'}
+            onChange={handleChange}
+          />
+          <span>Cat</span>
+        </label>
+        <label className="pet-option">
+          <input
+            type="radio"
+            name="pet"
+            value="dog"
+            checked={selectedPet === 'dog'}
+            onChange={handleChange}
+          />
+          <span>Dog</span>
+        </label>
+      </div>
+      <button type="submit" className="petselector-save">Save</button>
     </form>
   );
 }

@@ -1,29 +1,57 @@
 .leaderboard {
-  margin: 2rem auto;
-  max-width: 600px;
+  margin: 1.5rem auto;
+  max-width: 900px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.04);
+  padding: 1rem;
 }
+
 .leaderboard h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
   text-align: center;
-  color: #333;
+  color: #111827;
 }
+
 .leaderboard table {
   width: 100%;
   border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
 }
+
 .leaderboard th,
 .leaderboard td {
-  padding: 0.75rem;
-  border: 1px solid #ddd;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #eee;
 }
+
 .leaderboard th {
-  background: #f0f0f0;
-  font-weight: 600;
+  background: #f3f4f6;
+  font-weight: 700;
 }
+
 .leaderboard tr:nth-child(odd) {
-  background: #fafafa;
+  background: #ffffff;
 }
-.rank-1 td { font-weight: 700; color: #d97706; }
-.rank-2 td { font-weight: 600; color: #9a3412; }
-.rank-3 td { font-weight: 500; color: #92400e; }
+
+.leaderboard tr:hover {
+  background: #fbfbfd;
+}
+
+.rank-1 td {
+  font-weight: 700;
+  color: #d97706;
+}
+
+.rank-2 td {
+  font-weight: 600;
+  color: #9a3412;
+}
+
+.rank-3 td {
+  font-weight: 500;
+  color: #92400e;
+}
