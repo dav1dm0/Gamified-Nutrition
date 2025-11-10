@@ -19,11 +19,6 @@
     "react-router-dom": "^7.5.2",
     "react-scripts": "^5.0.1"
   },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
-    "@tailwindcss/postcss": "^4.1.4",
-    "eslint": "^9.25.1"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
