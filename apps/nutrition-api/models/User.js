@@ -12,7 +12,7 @@ class User {
     const hash = await bcrypt.hash(password, 10);
     const result = await db.query(
       `INSERT INTO users (username, password, level, points, petType)
-       VALUES ($1, $2, 1, 0, 'cat')
+       VALUES ($1, $2, 0, 0, 'cat')
        RETURNING id, username`,
       [username, hash]
     );

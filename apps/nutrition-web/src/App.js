@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import ErrorBoundary from './components/ErrorBoundary';
-import ProtectedRoute from './components/ProtectedRoute';
-import AuthForm from './components/AuthForm/AuthForm';
+import Home from './app/Home';
 import Dashboard from './app/Dashboard/Dashboard';
 import LeaderboardPage from './app/LeaderboardPage/LeaderboardPage';
 import PetPage from './app/PetPage/PetPage';
 import MealsPage from './app/MealsPage/MealsPage';
-import Navbar from './components/Navbar/Navbar';
+import Settings from './app/Settings/Settings';
 import NotFound from './app/NotFound/NotFound';
+import ErrorBoundary from './components/ErrorBoundary';
+import ProtectedRoute from './components/ProtectedRoute';
+import AuthForm from './components/AuthForm/AuthForm';
+import Navbar from './components/Navbar/Navbar';
 import './styles/global.css';
-import Settings from './components/Settings';
+
 
 export default function App() {
   const [user, setUser] = useState(null);

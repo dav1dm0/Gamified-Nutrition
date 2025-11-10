@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { getUserPreferences, updateUserPreferences } from '../api';
-import PetSelector from './PetSelector';
-import Toast from './Toast';
+import { getUserPreferences, updateUserPreferences } from '../../api';
+import PetSelector from '../../components/PetSelector';
+import Toast from '../../components/Toast';
 import './Settings.css';
 
 export default function Settings() {
