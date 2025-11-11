@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
-import { login, register, setAuthToken } from '../../api';
+import { login, register, setAuthToken, getUserProfile } from '../../api';
+import { AUTH_TOKEN_KEY } from '../../constants';
 import './AuthForm.css';
 
-export default function AuthForm() {
+export default function AuthForm({ onLogin }) {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const [isLogin, setIsLogin] = useState(true);
@@ -24,7 +25,16 @@ export default function AuthForm() {
         return;
       }
       setAuthToken(token);
-      localStorage.setItem('token', token);
+      localStorage.setItem(AUTH_TOKEN_KEY, token);
+
+      // fetch user profile and notify parent
+      try {
+        const profile = await getUserProfile();
+        const userObj = profile.data?.user || profile.data || null;
+        if (onLogin) onLogin(userObj);
+      } catch (err) {
+        console.warn('Failed to fetch profile after login:', err);
+      }
 
       navigate('/dashboard', { replace: true });
     } catch (err) {

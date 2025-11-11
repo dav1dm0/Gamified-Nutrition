@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AUTH_TOKEN_KEY } from '../constants';
 
 const api = axios.create({
   baseURL: '/api',
@@ -7,7 +8,7 @@ const api = axios.create({
 
 // Request interceptor for auth token
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem(AUTH_TOKEN_KEY);
   if (token) { config.headers.Authorization = `Bearer ${token}`; }
   return config;
 });
@@ -17,7 +18,9 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      localStorage.removeItem('token');
+      // clear stored token on 401
+      localStorage.removeItem(AUTH_TOKEN_KEY);
+      delete api.defaults.headers.common['Authorization'];
     }
     return Promise.reject(error);
   }
@@ -25,6 +28,11 @@ api.interceptors.response.use(
 
 export function setAuthToken(token) {
   api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
+
+export function clearAuthToken() {
+  localStorage.removeItem(AUTH_TOKEN_KEY);
+  delete api.defaults.headers.common['Authorization'];
 }
 
 // Auth endpoints

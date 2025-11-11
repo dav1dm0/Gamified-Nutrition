@@ -12,15 +12,30 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AuthForm from './components/AuthForm/AuthForm';
 import Navbar from './components/Navbar/Navbar';
 import './styles/global.css';
+import { AUTH_TOKEN_KEY } from './constants';
+import { getUserProfile, clearAuthToken } from './api';
 
 
 export default function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const checkAuth = () => {
-      const token = localStorage.getItem('authToken');
-      setUser(!!token);
+    const checkAuth = async () => {
+      const token = localStorage.getItem(AUTH_TOKEN_KEY);
+      if (!token) {
+        setUser(null);
+        return;
+      }
+
+      try {
+        const res = await getUserProfile();
+        // backend returns { user }
+        setUser(res.data?.user || res.data || null);
+      } catch (err) {
+        console.error('Auth validation failed:', err);
+        clearAuthToken();
+        setUser(null);
+      }
     };
 
     checkAuth();
