@@ -44,37 +44,33 @@ router.put('/', authenticate, async (req, res) => {
   const { petType, hideLeaderboard, hidePet } = req.body;
 
   try {
-    // Fetch current user data
-    const userResult = await db.query('SELECT * FROM users WHERE id = $1', [userId]);
-    if (userResult.rows.length === 0) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-    const currentUser = userResult.rows[0];
-
-    // Prepare new values, using existing values as fallback
-    const newPetType = petType || currentUser.pettype;
-    const newHideLeaderboard = typeof hideLeaderboard === 'boolean' ? hideLeaderboard : currentUser.hideleaderboard;
-    const newHidePet = typeof hidePet === 'boolean' ? hidePet : currentUser.hidepet;
-
-    if (newPetType && !['cat', 'dog'].includes(newPetType)) {
+    // Validate petType if provided
+    if (petType && !['cat', 'dog'].includes(petType)) {
       return res.status(400).json({ error: 'Invalid pet type' });
     }
 
+    // Use atomic UPDATE with COALESCE to avoid read-modify-write race:
+    // Only update fields that are explicitly provided (non-null/non-undefined)
     const updateResult = await db.query(
       `UPDATE users
-       SET pettype = $1, hideleaderboard = $2, hidepet = $3
+       SET pettype = COALESCE($1, pettype),
+           hideleaderboard = CASE WHEN $2::boolean IS NOT NULL THEN $2 ELSE hideleaderboard END,
+           hidepet = CASE WHEN $3::boolean IS NOT NULL THEN $3 ELSE hidepet END
        WHERE id = $4
        RETURNING pettype as "petType", hideleaderboard as "hideLeaderboard", hidepet as "hidePet"`,
-      [newPetType, newHideLeaderboard, newHidePet, userId]
+      [petType || null, hideLeaderboard !== undefined ? hideLeaderboard : null, hidePet !== undefined ? hidePet : null, userId]
     );
+
+    if (updateResult.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
 
     /** @type {UserPreferences} */
     const updatedPreferences = updateResult.rows[0];
-    // If hideLeaderboard changed, invalidate leaderboard cache
+    
+    // Always invalidate leaderboard cache on any preference update (non-fatal if Redis fails)
     try {
-      if (newHideLeaderboard !== currentUser.hideleaderboard) {
-        await redisClient.del(LEADERBOARD_CACHE_KEY);
-      }
+      await redisClient.del(LEADERBOARD_CACHE_KEY);
     } catch (cacheErr) {
       console.warn('Failed to invalidate leaderboard cache after preferences update:', cacheErr);
     }

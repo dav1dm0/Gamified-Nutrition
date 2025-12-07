@@ -9,15 +9,25 @@ export default function Settings() {
   const [toast, setToast] = useState({ message: '', type: 'success' });
 
   useEffect(() => {
+    let cancelled = false;
+    
     getUserPreferences().then(({ data }) => {
-      setPrefs({
-        hideLeaderboard: data.hideLeaderboard || false,
-        hidePet: data.hidePet || false,
-      });
+      if (!cancelled) {
+        setPrefs({
+          hideLeaderboard: data.hideLeaderboard || false,
+          hidePet: data.hidePet || false,
+        });
+      }
     }).catch((err) => {
       console.error('Failed to load preferences:', err);
-      setToast({ message: 'Failed to load preferences', type: 'error' });
+      if (!cancelled) {
+        setToast({ message: 'Failed to load preferences', type: 'error' });
+      }
     });
+    
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handleToggle = async (e) => {

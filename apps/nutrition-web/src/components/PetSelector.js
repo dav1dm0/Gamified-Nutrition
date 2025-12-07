@@ -9,14 +9,19 @@ export default function PetSelector() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    let cancelled = false;
     try {
       await updateUserPreferences({ petType: selectedPet });
-      setToast({ message: 'Pet preference saved!', type: 'success' });
-      // give the user a brief moment to see the toast then reload
-      setTimeout(() => window.location.reload(), 900);
+      if (!cancelled) {
+        setToast({ message: 'Pet preference saved!', type: 'success' });
+        // give the user a brief moment to see the toast then reload
+        const timeoutId = setTimeout(() => window.location.reload(), 900);
+      }
     } catch (error) {
       console.error('Failed to save pet preference:', error);
-      setToast({ message: 'Failed to save pet preference.', type: 'error' });
+      if (!cancelled) {
+        setToast({ message: 'Failed to save pet preference.', type: 'error' });
+      }
     }
   };
 

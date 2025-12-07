@@ -12,19 +12,24 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    let cancelled = false;
+    
     async function fetchData() {
       try {
         const { data } = await getUserProfile();
-        setUser(data.user);
+        if (!cancelled) setUser(data.user);
       } catch (err) {
         console.error('Fetch error:', err);
-        navigate('/login');
+        if (!cancelled) navigate('/login');
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
 
     fetchData();
+    return () => {
+      cancelled = true;
+    };
   }, [navigate]);
 
   const handleCompleteMeal = async () => {

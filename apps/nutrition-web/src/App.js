@@ -20,27 +20,34 @@ export default function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    let cancelled = false;
+    
     const checkAuth = async () => {
       const token = localStorage.getItem(AUTH_TOKEN_KEY);
       if (!token) {
-        setUser(null);
+        if (!cancelled) setUser(null);
         return;
       }
 
       try {
         const res = await getUserProfile();
         // backend returns { user }
-        setUser(res.data?.user || res.data || null);
+        if (!cancelled) setUser(res.data?.user || res.data || null);
       } catch (err) {
         console.error('Auth validation failed:', err);
-        clearAuthToken();
-        setUser(null);
+        if (!cancelled) {
+          clearAuthToken();
+          setUser(null);
+        }
       }
     };
 
     checkAuth();
     window.addEventListener('storage', checkAuth);
-    return () => window.removeEventListener('storage', checkAuth);
+    return () => {
+      cancelled = true;
+      window.removeEventListener('storage', checkAuth);
+    };
   }, []);
 
   return (
