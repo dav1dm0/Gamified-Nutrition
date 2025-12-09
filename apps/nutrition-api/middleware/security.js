@@ -6,6 +6,7 @@ import crypto from 'crypto';
 
 // Security headers middleware
 export const secureHeaders = helmet({
+  xPoweredBy: false,
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
@@ -19,7 +20,31 @@ export const secureHeaders = helmet({
   crossOriginResourcePolicy: { policy: "same-site" }
 });
 
-// Rate limiting
+// Rate limiting for read operations (GET)
+export const readLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1000, // higher limit for safe read operations
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    error: 'Too many requests, please try again later'
+  },
+  skip: (req) => req.method !== 'GET'
+});
+
+// Rate limiting for write operations (POST, PUT, DELETE)
+export const writeLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // stricter limit for state-changing operations
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    error: 'Too many requests, please try again later'
+  },
+  skip: (req) => req.method === 'GET'
+});
+
+// General API limiter (fallback for all methods)
 export const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 250, // limit each IP to 250 requests per windowMs

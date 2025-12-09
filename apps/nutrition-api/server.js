@@ -5,7 +5,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { secureHeaders, apiLimiter, authenticate } from './middleware/security.js';
+import { secureHeaders, apiLimiter, readLimiter, writeLimiter, authenticate } from './middleware/security.js';
 
 import userRoutes from './routes/userRoutes.js';
 import pointRoutes from './routes/pointRoutes.js';
@@ -27,7 +27,8 @@ app.set('trust proxy', 1);
 app.use(express.json());
 app.use(cookieParser());
 app.use(secureHeaders);
-app.use(apiLimiter);
+app.use(readLimiter);
+app.use(writeLimiter);
 
 app.use('/api/auth', userRoutes);
 app.use('/api/users', authenticate, userRoutes);
