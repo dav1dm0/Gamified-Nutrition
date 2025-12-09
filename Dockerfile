@@ -1,5 +1,5 @@
 # === Base Stage (to get pnpm) ===
-FROM node:20-slim AS base
+FROM node:22-slim AS base
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
